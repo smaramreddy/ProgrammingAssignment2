@@ -1,15 +1,34 @@
-## Put comments here that give an overall description of what your
-## functions do
+## this function reads the matrix, inverses it and stores in the Cache
+## this helps in reducing the multiple calculations and hence processer time
 
-## Write a short comment describing this function
+## This function reads the matrix, inverses it and stores in the cache
 
-makeCacheMatrix <- function(x = matrix()) {
+makeCacheMatrix <- function(x = matrix()) 
+{ invmatrx <- NULL
+set <- function(mat) x <<- mat
+get <- function() x
+setinv <- function() invmatrx <<- solve(x) 
+getinv <- function() invmatrx
+list(get = get, set = set, setinv = setinv, getinv = getinv)
 
 }
 
 
-## Write a short comment describing this function
+## this function reads the above created matrix, checks if its already inversed and availabe
+## available in the cache. If not, it will do the inverse and display the result
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(x, ...) 
+{
+  inv1 = x$getinv()
+  if (!is.null(inv1))
+  {
+    message("Getting from Cached data")
+    return(inv1)
+  }
+  inv <- x$get()
+  inv1 <- solve(inv)
+  x$setinv(inv1)
+  inv1
+  
 }
+
